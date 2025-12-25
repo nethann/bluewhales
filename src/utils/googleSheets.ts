@@ -1,7 +1,8 @@
 // Google Apps Script web app URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-C-sJkAq6IYkyn4k7tcbQZW-J6B6J8d33jEZuXl-cRIKhfBtFb0u_WhxsH9y9FvCB/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9lQ2DNePgak2WxIRLo1tHvYh6ipv9z9SRwUN32i-ulpA88j9tnx1sclW_2hCsndDd/exec';
 
 export interface RoomServiceData {
+  roomNumber: string;
   date: string;
   time: string;
   services: string[];
@@ -15,16 +16,20 @@ export interface FeedbackData {
 
 export async function sendRoomServiceRequest(data: RoomServiceData): Promise<boolean> {
   try {
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    const payload = {
+      type: 'roomService',
+      ...data,
+    };
+
+    console.log('Payload being sent to Google Sheets:', payload);
+
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        type: 'roomService',
-        ...data,
-      }),
+      body: JSON.stringify(payload),
     });
 
     // Note: With no-cors mode, we can't read the response
@@ -38,7 +43,7 @@ export async function sendRoomServiceRequest(data: RoomServiceData): Promise<boo
 
 export async function sendFeedback(data: FeedbackData): Promise<boolean> {
   try {
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: {

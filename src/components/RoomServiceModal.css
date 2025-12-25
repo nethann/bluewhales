@@ -16,7 +16,8 @@
 }
 
 .form-group input[type='date'],
-.form-group input[type='time'] {
+.form-group input[type='time'],
+.form-group select {
   width: 100%;
   padding: 12px 14px;
   border: 2px solid #e0e0e0;
@@ -26,10 +27,12 @@
   background: white;
   color: #0c4a6e;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .form-group input[type='date']:focus,
-.form-group input[type='time']:focus {
+.form-group input[type='time']:focus,
+.form-group select:focus {
   outline: none;
   border-color: #06b6d4;
 }
@@ -107,7 +110,8 @@
   }
 
   .form-group input[type='date'],
-  .form-group input[type='time'] {
+  .form-group input[type='time'],
+  .form-group select {
     padding: 11px 12px;
     font-size: 15px;
   }

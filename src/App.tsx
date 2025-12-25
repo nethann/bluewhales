@@ -92,6 +92,7 @@ function App() {
 
         <section className="feedback-section">
           <h2 className="feedback-title">{t.feedbackTitle}</h2>
+          <p className="feedback-description">{t.feedbackDescription}</p>
           <form onSubmit={handleFeedbackSubmit} className="feedback-form">
             <textarea
               className="feedback-textarea"

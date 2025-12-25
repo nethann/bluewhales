@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Modal from './Modal';
 import SuccessModal from './SuccessModal';
-import { Translations, Language } from '../translations';
+import { type Translations, type Language } from '../translations';
 import { sendRoomServiceRequest } from '../utils/googleSheets';
 import './RoomServiceModal.css';
 
@@ -13,6 +13,7 @@ interface RoomServiceModalProps {
 }
 
 export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomServiceModalProps) {
+  const [roomNumber, setRoomNumber] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [services, setServices] = useState({
@@ -40,8 +41,18 @@ export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomS
       .filter(([_, isSelected]) => isSelected)
       .map(([service]) => service);
 
+    // Debug: Log the data being sent
+    console.log('Sending room service data:', {
+      roomNumber: roomNumber,
+      date: selectedDate,
+      time: selectedTime,
+      services: selectedServices,
+      language: language,
+    });
+
     // Send to Google Sheets
-    const success = await sendRoomServiceRequest({
+    await sendRoomServiceRequest({
+      roomNumber: roomNumber,
       date: selectedDate,
       time: selectedTime,
       services: selectedServices,
@@ -53,6 +64,7 @@ export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomS
     setIsSuccessOpen(true);
 
     // Reset form
+    setRoomNumber('');
     setSelectedDate('');
     setSelectedTime('');
     setServices({
@@ -73,6 +85,28 @@ export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomS
     <>
       <Modal isOpen={isOpen} onClose={onClose} title={t.roomServiceTitle}>
         <form onSubmit={handleSubmit} className="room-service-form">
+          <div className="form-group">
+            <label htmlFor="room-number">{t.roomNumber}:</label>
+            <select
+              id="room-number"
+              value={roomNumber}
+              onChange={(e) => setRoomNumber(e.target.value)}
+              required
+            >
+              <option value="">Select Room</option>
+              <option value="1">Room 1</option>
+              <option value="2">Room 2</option>
+              <option value="3">Room 3</option>
+              <option value="4">Room 4</option>
+              <option value="5">Room 5</option>
+              <option value="6">Room 6</option>
+              <option value="7">Room 7</option>
+              <option value="8">Room 8</option>
+              <option value="9">Room 9</option>
+              <option value="10">Room 10</option>
+            </select>
+          </div>
+
           <div className="form-group">
             <label htmlFor="service-date">{t.selectDate}:</label>
             <input

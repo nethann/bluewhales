@@ -9,7 +9,10 @@ export interface Translations {
   laundry: string;
   roomService: string;
   feedbackTitle: string;
+  feedbackDescription: string;
   feedbackPlaceholder: string;
+  rating: string;
+  roomNumber: string;
   sendButton: string;
   closeButton: string;
 
@@ -53,7 +56,10 @@ export const translations: Record<Language, Translations> = {
     laundry: 'Laundry',
     roomService: 'Room Service',
     feedbackTitle: 'To serve you better, please let us know how we can improve our services',
+    feedbackDescription: 'Your feedback helps us enhance your experience and improve our services for all guests.',
     feedbackPlaceholder: 'Share your feedback here...',
+    rating: 'Rate your experience (1-10)',
+    roomNumber: 'Room Number',
     sendButton: 'Send',
     closeButton: 'Close',
 
@@ -91,7 +97,10 @@ export const translations: Record<Language, Translations> = {
     laundry: 'Прачечная',
     roomService: 'Обслуживание номеров',
     feedbackTitle: 'Чтобы лучше обслуживать вас, пожалуйста, сообщите нам, как мы можем улучшить наши услуги',
+    feedbackDescription: 'Ваш отзыв помогает нам улучшить ваш опыт и наши услуги для всех гостей.',
     feedbackPlaceholder: 'Поделитесь своим отзывом здесь...',
+    rating: 'Оцените свой опыт (1-10)',
+    roomNumber: 'Номер комнаты',
     sendButton: 'Отправить',
     closeButton: 'Закрыть',
 
@@ -129,7 +138,10 @@ export const translations: Record<Language, Translations> = {
     laundry: 'Wäscherei',
     roomService: 'Zimmerservice',
     feedbackTitle: 'Um Sie besser bedienen zu können, teilen Sie uns bitte mit, wie wir unsere Dienstleistungen verbessern können',
+    feedbackDescription: 'Ihr Feedback hilft uns, Ihr Erlebnis zu verbessern und unsere Dienstleistungen für alle Gäste zu optimieren.',
     feedbackPlaceholder: 'Teilen Sie uns Ihr Feedback mit...',
+    rating: 'Bewerten Sie Ihre Erfahrung (1-10)',
+    roomNumber: 'Zimmernummer',
     sendButton: 'Senden',
     closeButton: 'Schließen',
 
@@ -167,7 +179,10 @@ export const translations: Record<Language, Translations> = {
     laundry: 'Laundry',
     roomService: 'Room Service',
     feedbackTitle: 'To serve you better, please let us know how we can improve our services',
+    feedbackDescription: 'Your feedback helps us enhance your experience and improve our services for all guests.',
     feedbackPlaceholder: 'Share your feedback here...',
+    rating: 'Rate your experience (1-10)',
+    roomNumber: 'Room Number',
     sendButton: 'Send',
     closeButton: 'Close',
 
@@ -205,7 +220,10 @@ export const translations: Record<Language, Translations> = {
     laundry: 'כביסה',
     roomService: 'שירות חדרים',
     feedbackTitle: 'כדי לשרת אתכם טוב יותר, אנא הודיעו לנו כיצד נוכל לשפר את השירותים שלנו',
+    feedbackDescription: 'המשוב שלכם עוזר לנו לשפר את החוויה שלכם ולשפר את השירותים שלנו עבור כל האורחים.',
     feedbackPlaceholder: 'שתפו את המשוב שלכם כאן...',
+    rating: 'דרגו את החוויה שלכם (1-10)',
+    roomNumber: 'מספר חדר',
     sendButton: 'שלח',
     closeButton: 'סגור',
 
