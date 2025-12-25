@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from './components/Modal';
 import RoomServiceModal from './components/RoomServiceModal';
+import SuccessModal from './components/SuccessModal';
 import { translations, languageNames, type Language } from './translations';
 import { sendFeedback } from './utils/googleSheets';
 import './App.css';
@@ -9,6 +10,8 @@ function App() {
   const [language, setLanguage] = useState<Language>('en');
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [feedback, setFeedback] = useState('');
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const t = translations[language];
 
@@ -16,16 +19,14 @@ function App() {
     e.preventDefault();
     if (feedback.trim()) {
       // Send to Google Sheets
-      const success = await sendFeedback({
+      await sendFeedback({
         feedback: feedback,
         language: language,
       });
 
-      if (success) {
-        alert('Thank you for your feedback!');
-      } else {
-        alert('Thank you! Your feedback has been received.');
-      }
+      // Show success message
+      setSuccessMessage(t.feedbackSuccess);
+      setIsSuccessOpen(true);
 
       setFeedback('');
     }
@@ -149,6 +150,13 @@ function App() {
         onClose={() => setActiveModal(null)}
         t={t}
         language={language}
+      />
+
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={isSuccessOpen}
+        onClose={() => setIsSuccessOpen(false)}
+        message={successMessage}
       />
     </div>
   );

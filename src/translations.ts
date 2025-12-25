@@ -37,6 +37,10 @@ export interface Translations {
   // Tours modal
   toursTitle: string;
   toursInfo: string;
+
+  // Success messages
+  roomServiceSuccess: string;
+  feedbackSuccess: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -73,6 +77,9 @@ export const translations: Record<Language, Translations> = {
 
     toursTitle: 'Available Tours',
     toursInfo: 'Tour Information',
+
+    roomServiceSuccess: 'Room service request submitted successfully!',
+    feedbackSuccess: 'Thank you for your feedback!',
   },
 
   ru: {
@@ -108,6 +115,9 @@ export const translations: Record<Language, Translations> = {
 
     toursTitle: 'Доступные туры',
     toursInfo: 'Информация о турах',
+
+    roomServiceSuccess: 'Запрос на обслуживание номера успешно отправлен!',
+    feedbackSuccess: 'Спасибо за ваш отзыв!',
   },
 
   de: {
@@ -143,6 +153,9 @@ export const translations: Record<Language, Translations> = {
 
     toursTitle: 'Verfügbare Touren',
     toursInfo: 'Tour-Informationen',
+
+    roomServiceSuccess: 'Zimmerservice-Anfrage erfolgreich gesendet!',
+    feedbackSuccess: 'Vielen Dank für Ihr Feedback!',
   },
 
   au: {
@@ -178,6 +191,9 @@ export const translations: Record<Language, Translations> = {
 
     toursTitle: 'Available Tours',
     toursInfo: 'Tour Information',
+
+    roomServiceSuccess: 'Room service request submitted successfully!',
+    feedbackSuccess: 'Thank you for your feedback!',
   },
 
   he: {
@@ -213,6 +229,9 @@ export const translations: Record<Language, Translations> = {
 
     toursTitle: 'טיולים זמינים',
     toursInfo: 'מידע על טיולים',
+
+    roomServiceSuccess: 'בקשת שירות חדרים נשלחה בהצלחה!',
+    feedbackSuccess: 'תודה על המשוב שלכם!',
   },
 };
 

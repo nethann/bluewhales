@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Modal from './Modal';
+import SuccessModal from './SuccessModal';
 import { Translations, Language } from '../translations';
 import { sendRoomServiceRequest } from '../utils/googleSheets';
 import './RoomServiceModal.css';
@@ -22,6 +23,8 @@ export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomS
     changeTowels: false,
     emptyTrash: false,
   });
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleServiceToggle = (service: keyof typeof services) => {
     setServices((prev) => ({
@@ -45,11 +48,9 @@ export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomS
       language: language,
     });
 
-    if (success) {
-      alert('Room service request submitted successfully!');
-    } else {
-      alert('Request sent! We will process it shortly.');
-    }
+    // Show success message
+    setSuccessMessage(t.roomServiceSuccess);
+    setIsSuccessOpen(true);
 
     // Reset form
     setSelectedDate('');
@@ -69,94 +70,102 @@ export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomS
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={t.roomServiceTitle}>
-      <form onSubmit={handleSubmit} className="room-service-form">
-        <div className="form-group">
-          <label htmlFor="service-date">{t.selectDate}:</label>
-          <input
-            type="date"
-            id="service-date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            min={today}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="service-time">{t.selectTime}:</label>
-          <input
-            type="time"
-            id="service-time"
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>{t.selectServices}</label>
-          <div className="checkbox-group">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={services.cleanToilet}
-                onChange={() => handleServiceToggle('cleanToilet')}
-              />
-              <span>{t.cleanToilet}</span>
-            </label>
-
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={services.makeBed}
-                onChange={() => handleServiceToggle('makeBed')}
-              />
-              <span>{t.makeBed}</span>
-            </label>
-
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={services.vacuumFloor}
-                onChange={() => handleServiceToggle('vacuumFloor')}
-              />
-              <span>{t.vacuumFloor}</span>
-            </label>
-
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={services.cleanBathroom}
-                onChange={() => handleServiceToggle('cleanBathroom')}
-              />
-              <span>{t.cleanBathroom}</span>
-            </label>
-
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={services.changeTowels}
-                onChange={() => handleServiceToggle('changeTowels')}
-              />
-              <span>{t.changeTowels}</span>
-            </label>
-
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={services.emptyTrash}
-                onChange={() => handleServiceToggle('emptyTrash')}
-              />
-              <span>{t.emptyTrash}</span>
-            </label>
+    <>
+      <Modal isOpen={isOpen} onClose={onClose} title={t.roomServiceTitle}>
+        <form onSubmit={handleSubmit} className="room-service-form">
+          <div className="form-group">
+            <label htmlFor="service-date">{t.selectDate}:</label>
+            <input
+              type="date"
+              id="service-date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              min={today}
+              required
+            />
           </div>
-        </div>
 
-        <button type="submit" className="submit-button">
-          {t.submitRequest}
-        </button>
-      </form>
-    </Modal>
+          <div className="form-group">
+            <label htmlFor="service-time">{t.selectTime}:</label>
+            <input
+              type="time"
+              id="service-time"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>{t.selectServices}</label>
+            <div className="checkbox-group">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={services.cleanToilet}
+                  onChange={() => handleServiceToggle('cleanToilet')}
+                />
+                <span>{t.cleanToilet}</span>
+              </label>
+
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={services.makeBed}
+                  onChange={() => handleServiceToggle('makeBed')}
+                />
+                <span>{t.makeBed}</span>
+              </label>
+
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={services.vacuumFloor}
+                  onChange={() => handleServiceToggle('vacuumFloor')}
+                />
+                <span>{t.vacuumFloor}</span>
+              </label>
+
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={services.cleanBathroom}
+                  onChange={() => handleServiceToggle('cleanBathroom')}
+                />
+                <span>{t.cleanBathroom}</span>
+              </label>
+
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={services.changeTowels}
+                  onChange={() => handleServiceToggle('changeTowels')}
+                />
+                <span>{t.changeTowels}</span>
+              </label>
+
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={services.emptyTrash}
+                  onChange={() => handleServiceToggle('emptyTrash')}
+                />
+                <span>{t.emptyTrash}</span>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" className="submit-button">
+            {t.submitRequest}
+          </button>
+        </form>
+      </Modal>
+
+      <SuccessModal
+        isOpen={isSuccessOpen}
+        onClose={() => setIsSuccessOpen(false)}
+        message={successMessage}
+      />
+    </>
   );
 }
