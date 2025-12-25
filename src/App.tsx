@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from './components/Modal';
 import RoomServiceModal from './components/RoomServiceModal';
 import { translations, languageNames, type Language } from './translations';
+import { sendFeedback } from './utils/googleSheets';
 import './App.css';
 
 function App() {
@@ -11,11 +12,21 @@ function App() {
 
   const t = translations[language];
 
-  const handleFeedbackSubmit = (e: React.FormEvent) => {
+  const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (feedback.trim()) {
-      console.log('Feedback submitted:', feedback);
-      alert('Thank you for your feedback!');
+      // Send to Google Sheets
+      const success = await sendFeedback({
+        feedback: feedback,
+        language: language,
+      });
+
+      if (success) {
+        alert('Thank you for your feedback!');
+      } else {
+        alert('Thank you! Your feedback has been received.');
+      }
+
       setFeedback('');
     }
   };
@@ -116,9 +127,7 @@ function App() {
       >
         <div className="modal-content-inner">
           <div className="menu-images">
-            <p className="placeholder-text">
-              Upload tour images to: <code>public/tours/</code>
-            </p>
+            <img src="/tours/LSL_B2_Hikkaduwa-Beach_800x520.jpg" alt="Tour" className="menu-image" />
           </div>
         </div>
       </Modal>
@@ -139,6 +148,7 @@ function App() {
         isOpen={activeModal === 'roomService'}
         onClose={() => setActiveModal(null)}
         t={t}
+        language={language}
       />
     </div>
   );

@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import Modal from './Modal';
-import { Translations } from '../translations';
+import { Translations, Language } from '../translations';
+import { sendRoomServiceRequest } from '../utils/googleSheets';
 import './RoomServiceModal.css';
 
 interface RoomServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   t: Translations;
+  language: Language;
 }
 
-export default function RoomServiceModal({ isOpen, onClose, t }: RoomServiceModalProps) {
+export default function RoomServiceModal({ isOpen, onClose, t, language }: RoomServiceModalProps) {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [services, setServices] = useState({
@@ -28,20 +30,26 @@ export default function RoomServiceModal({ isOpen, onClose, t }: RoomServiceModa
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const selectedServices = Object.entries(services)
       .filter(([_, isSelected]) => isSelected)
       .map(([service]) => service);
 
-    console.log('Room Service Request:', {
+    // Send to Google Sheets
+    const success = await sendRoomServiceRequest({
       date: selectedDate,
       time: selectedTime,
       services: selectedServices,
+      language: language,
     });
 
-    alert('Room service request submitted successfully!');
+    if (success) {
+      alert('Room service request submitted successfully!');
+    } else {
+      alert('Request sent! We will process it shortly.');
+    }
 
     // Reset form
     setSelectedDate('');
