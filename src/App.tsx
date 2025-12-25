@@ -102,12 +102,8 @@ function App() {
         title={t.restaurantTitle}
       >
         <div className="modal-content-inner">
-          <h3>{t.menuTitle}</h3>
-          <div className="image-gallery">
-            <p className="placeholder-text">
-              Upload menu images to: <code>public/menu/</code>
-            </p>
-            {/* Images will be displayed here once uploaded */}
+          <div className="menu-images">
+            <img src="/menu/photo0jpg.jpg" alt="Menu" className="menu-image" />
           </div>
         </div>
       </Modal>
@@ -119,12 +115,10 @@ function App() {
         title={t.toursTitle}
       >
         <div className="modal-content-inner">
-          <h3>{t.toursInfo}</h3>
-          <div className="image-gallery">
+          <div className="menu-images">
             <p className="placeholder-text">
               Upload tour images to: <code>public/tours/</code>
             </p>
-            {/* Images will be displayed here once uploaded */}
           </div>
         </div>
       </Modal>
